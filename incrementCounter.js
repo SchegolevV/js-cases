@@ -9,6 +9,25 @@
 В конце функция должна возвращать значение счетчика после инкремента.*/
 
 
-function incrementCounter(counterName){
 
+function incrementCounter(counterName){
+    let jsonObj = localStorage.getItem('counters') // обьект в JSON формате
+    
+    try {
+        JSON.parse(jsonObj);
+    }
+    catch {
+        localStorage.setItem('counters', JSON.stringify({})) 
+        jsonObj = localStorage.getItem('counters');
+    }
+    parsedObject = JSON.parse(jsonObj);
+
+    if (!parsedObject[counterName]) {
+        parsedObject[counterName] = 0;
+    }
+    parsedObject[counterName]++;
+
+    localStorage.setItem('counters', JSON.stringify(parsedObject))
+
+    return parsedObject[counterName];
 }

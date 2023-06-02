@@ -4,26 +4,28 @@ const path = require('path');
 
 function getChildrenFrom(src) {
 
-    let array = [];
-
-    fs.readdir(src, (err, files) => {
-    
-        if (err) {
-            console.log('ошибочка')
-        }
-    
-        files.forEach((file) => array.push(`${file}`))
+    return promise = new Promise(function(resovle) {
+        fs.readdir(src, (err, files) => {
+            let arr = [];
+            let count = 0;
+            files.forEach((file) => {
+                count++
+                arr.push(file)
+                if (count === files.length) {
+                    resovle(arr)
+                }
+            })
+        })
     })
-
-    return array //?
 }
 
 let gamePath = path.join(__dirname, 'games')
 let pagePath = path.join(__dirname, 'pages')
 
-
-getChildrenFrom(gamePath)
-getChildrenFrom(pagePath)
+let newArr = [];
+getChildrenFrom(gamePath).then((arr) => {
+    arr
+})
 
 
 // let gameFolders = getChildrenFrom(gamePath)
